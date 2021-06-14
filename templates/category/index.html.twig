@@ -3,63 +3,65 @@
 {% block title %}Category index
 {% endblock %}
 {% block stylesheets %}
-	<!-- Google Font: Source Sans Pro -->
-	<link
-	rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-	<!-- Font Awesome -->
-	<link
-	rel="stylesheet" href="{{ asset('templates/plugins/fontawesome-free/css/all.min.css')}}">
+	{# <!-- Google Font: Source Sans Pro -->
+						<link
+						rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+						<!-- Font Awesome -->
+						<link
+						rel="stylesheet" href="{{ asset('templates/plugins/fontawesome-free/css/all.min.css')}}"> #}
 	<!-- DataTables -->
-	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}"> <link rel="stylesheet" href="{{ asset('templates/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 	<link
 	rel="stylesheet" href="{{ asset('templates/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="{{ asset('templates/dist/css/adminlte.min.css')}}">
+{# <!-- Theme style -->
+	<link rel="stylesheet" href="{{ asset('templates/dist/css/adminlte.min.css')}}"> #}
 {% endblock %}
 
 {% block body %}
-
 	<div class="row">
-		<div class="card">
-			<div class="card-header">
-				<h3 class="card-title">Category index</h3>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body">
-				<table id="example1" class="table table-bordered table-striped">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Name</th>
-							<th>actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for category in categories %}
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Category index</h3>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+					<table id="example1" class="table table-bordered table-striped">
+						<thead>
 							<tr>
-								<td>{{ category.id }}</td>
-								<td>{{ category.name }}</td>
-								<td>
-									<a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-									<a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-								</td>
+								<th>Id</th>
+								<th>Name</th>
+								<th>actions</th>
 							</tr>
-						{% else %}
-							<tr>
-								<td colspan="3">no records found</td>
-							</tr>
-						{% endfor %}
-					</tbody>
+						</thead>
+						<tbody>
+							{% for category in categories %}
+								<tr>
+									<td>{{ category.id }}</td>
+									<td>{{ category.name }}</td>
+									<td>
+										<a href="{{ path('category_show', {'id': category.id}) }}">show</a>
+										<a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="3">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
 
-				</table>
-			</div>
-			<!-- /.card-body -->
-			<div class="card-footer">
-				<a href="{{ path('category_new') }}">Create new</a>
+					</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					<a href="{{ path('category_new') }}">Create new</a>
+				</div>
 			</div>
 		</div>
+
 	</div>
+
 	{% block javascripts %}
 		<!-- jQuery -->
 		<script src="{{ asset('templates/plugins/jquery/jquery.min.js')}}"></script>
@@ -78,27 +80,33 @@
 		<script src="{{ asset('templates/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 		<script src="{{ asset('templates/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 		<script src="{{ asset('templates/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-		{# <!-- AdminLTE App -->
-														<script src="../../dist/js/adminlte.min.js"></script>
-														<!-- AdminLTE for demo purposes -->
-														<script src="../../dist/js/demo.js"></script>
-														<!-- Page specific script --> #}
 		<script>
 			$(function () {
-var table = $('#example1').DataTable({
+$("#example1").DataTable({
 "responsive": true,
 "lengthChange": false,
-"paging": false,
-"searching": false,
 "autoWidth": false,
+"searching": true,
+"ordering": false,
+"paging": true,
 "buttons": [
 "copy",
 "csv",
 "excel",
 "pdf",
-"print"
+"print",
+"colvis"
 ]
 }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+$('#example2').DataTable({
+"paging": true,
+"lengthChange": false,
+"searching": false,
+"ordering": true,
+"info": true,
+"autoWidth": false,
+"responsive": true
+});
 });
 		</script>
 	{% endblock %}
