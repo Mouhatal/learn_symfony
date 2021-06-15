@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Produit;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,19 +23,35 @@ class ProduitRepository extends ServiceEntityRepository
     // /**
     //  * @return Produit[] Returns an array of Produit objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByCategoryId($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('p.category_id = :category')
+            ->setParameter('category', $value)
             ->orderBy('p.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+
+
+    /**
+     * @return Category[]
+     */
+    public function getCategories(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT c
+        FROM App\Entity\Category c
+        '
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Produit

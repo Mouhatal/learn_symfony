@@ -12,13 +12,62 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Category index</h3>
+					<h3 class="card-title">Add Products With Form TYPE</h3>
+				</div>
+				<div
+					class="card-body">
+					{# <form action="" method="post"></form> #}
+					{{ include('produit/_form.html.twig') }}
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Add Products With Form Action</h3>
+				</div>
+				<div class="card-body">
+					<form action="{{ path('addAction') }}" method="post">
+						<div class="mb-3">
+							<label for="name" class="form-label">Name</label>
+							<input type="text" class="form-control" id="name" name="name" requireed>
+						</div>
+						<div class="mb-3">
+							<label for="cost" class="form-label">Cost</label>
+							<input type="number" class="form-control" id="cost" name="cost" required>
+						</div>
+						<div class="mb-3">
+							<label for="category" class="form-label">Category</label>
+
+							<select class="form-select" aria-label="Disabled select example" id="category" name="category">
+								{% for category in categories %}
+									<option value="{{ category.id }}">{{category.name}}</option>
+								{% endfor %}
+							</select>
+
+						</div>
+
+
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">List of Products</h3>
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">
 					<table id="example1" class="table table-bordered table-striped">
 						<thead>
-							<tr>
+							<tr class="text-center">
 								<th>Id</th>
 								<th>Name</th>
 								<th>Cost</th>
@@ -29,13 +78,21 @@
 						<tbody>
 							{% for produit in produits %}
 								<tr>
-									<td>{{ produit.id }}</td>
-									<td>{{ produit.name }}</td>
-									<td>{{ produit.cost }}</td>
-									<td>{{ produit.category }}</td>
-									<td>
-										<a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
-										<a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
+									<td class="text-center">{{ produit.id }}</td>
+									<td class="text-center">{{ produit.name }}</td>
+									<td class="text-center">{{ produit.cost }}</td>
+									<td class="text-center">{{ produit.category }}</td>
+									<td class="text-right">
+										<a class="btn btn-outline-primary" href="{{ path('produit_show', {'id': produit.id}) }}">
+											<span>
+												<i class="fa fa-eye"></i>
+											</span>
+										</a>
+										<a class="btn btn-outline-danger" href="{{ path('produit_edit', {'id': produit.id}) }}">
+											<span>
+												<i class="fa fa-edit"></i>
+											</span>
+										</a>
 									</td>
 								</tr>
 							{% else %}

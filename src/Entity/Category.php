@@ -83,8 +83,20 @@ class Category
         return $this;
     }
 
+    // public function __toString()
+    // {
+    //     return $this->getName() ;
+    // }
+
+    /**
+     * Generates the magic method
+     * 
+     */
     public function __toString()
     {
-        return $this->getName() . '_';
+        // to show the name of the Category in the select
+        return $this->name;
+        // to show the id of the Category in the select
+        return $this->id;
     }
 }

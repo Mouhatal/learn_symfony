@@ -3,18 +3,12 @@
 {% block title %}Category index
 {% endblock %}
 {% block stylesheets %}
-	{# <!-- Google Font: Source Sans Pro -->
-							<link
-							rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-							<!-- Font Awesome -->
-							<link
-							rel="stylesheet" href="{{ asset('templates/plugins/fontawesome-free/css/all.min.css')}}"> #}
+
 	<!-- DataTables -->
-	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}"> <link rel="stylesheet" href="{{ asset('templates/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-	<link
-	rel="stylesheet" href="{{ asset('templates/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-{# <!-- Theme style -->
-	<link rel="stylesheet" href="{{ asset('templates/dist/css/adminlte.min.css')}}"> #}
+	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
 {% endblock %}
 
 {% block body %}
@@ -22,13 +16,13 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Category index</h3>
+					<h3 class="card-title">List of Categories</h3>
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">
 					<table id="example1" class="table table-bordered table-striped">
 						<thead>
-							<tr>
+							<tr class="text-center">
 								<th>Id</th>
 								<th>Name</th>
 								<th>actions</th>
@@ -37,11 +31,19 @@
 						<tbody>
 							{% for category in categories %}
 								<tr>
-									<td>{{ category.id }}</td>
-									<td>{{ category.name }}</td>
-									<td>
-										<a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-										<a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+									<td class="text-center">{{ category.id }}</td>
+									<td class="text-center">{{ category.name }}</td>
+									<td class="text-right">
+										<a class="btn btn-outline-primary" href="{{ path('category_show', {'id': category.id}) }}">
+											<span>
+												<i class="fa fa-eye"></i>
+											</span>
+										</a>
+										<a class="btn btn-outline-danger" href="{{ path('category_edit', {'id': category.id}) }}">
+											<span>
+												<i class="fa fa-edit"></i>
+											</span>
+										</a>
 									</td>
 								</tr>
 							{% else %}
