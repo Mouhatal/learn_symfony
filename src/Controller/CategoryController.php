@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+// use Symfony\Component\Routing\Annotation\IsGranted;
 
 /**
+ * @IsGranted("ROLE_ADMIN")
  * @Route("/category")
  */
 class CategoryController extends AbstractController
@@ -83,7 +86,7 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();
