@@ -28,6 +28,11 @@ class Produit
     private $cost;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      */
     private $category;
@@ -75,5 +80,17 @@ class Produit
     public function __toString()
     {
         return $this->getCategory();
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }

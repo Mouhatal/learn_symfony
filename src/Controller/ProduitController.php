@@ -92,6 +92,7 @@ class ProduitController extends AbstractController
             $produit = new Produit();
             $name = $request->get('name');
             $cost = $request->get('cost');
+            $created_at = $request->get('created_at');
             $entityManager = $this->getDoctrine()->getManager();
             // dd($request->get('category'));
             // ->$request->get('category')
@@ -100,7 +101,9 @@ class ProduitController extends AbstractController
             $category = $categoryRepository->findByCategoryId($request->get('category'));
             $produit->setName($name);
             $produit->setCost($cost);
+            $produit->setCreatedAt(new \DateTime($created_at));
             $produit->setCategory($category);
+            // dd($produit);
             $entityManager->persist($produit);
             $entityManager->flush();
             return $this->redirectToRoute('produit_index', ['produits' => $produitRepository->findAll()]);

@@ -7,7 +7,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-																																																																						           and uncomment the following Encore helpers to start using Symfony UX #}
+																																																																																           and uncomment the following Encore helpers to start using Symfony UX #}
 
 		{#{{ encore_entry_link_tags('app') }}#}
 		<link
@@ -59,11 +59,11 @@
 							</a>
 						</li>
 						{# <li class="nav-item d-none d-sm-inline-block">
-																																																																																																																																<a href=" {{ path('') }}" class="nav-link">Home</a>
-																																																																																																																															</li>
-																																																																																																																															<li class="nav-item d-none d-sm-inline-block">
-																																																																																																																																<a href="#" class="nav-link">Contact</a>
-																																																																																																																															</li> #}
+																																																																																																																																																														<a href=" {{ path('') }}" class="nav-link">Home</a>
+																																																																																																																																																													</li>
+																																																																																																																																																													<li class="nav-item d-none d-sm-inline-block">
+																																																																																																																																																														<a href="#" class="nav-link">Contact</a>
+																																																																																																																																																													</li> #}
 					</ul>
 
 					<!-- Right navbar links -->
@@ -228,7 +228,6 @@
 									<img src="{{ asset('templates/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
 								</div>
 
-								{{ app.user.username }}
 
 								<button type="button" class="btn btn-outline-danger">
 									<a href="{{ path('app_logout') }}">
@@ -237,6 +236,22 @@
 								</button>
 
 							</div>
+						{% else %}
+							<div class="user-panel mt-3 pb-3 mb-3 d-flex clearfix ">
+
+								<button type="button" class="btn btn-outline-primary float-left">
+									<a href="{{ path('app_register') }}">
+										Sign Up
+									</a>
+								</button>
+								<button type="button" class="btn btn-outline-primary float-right">
+									<a href="{{ path('app_login') }}">
+										Sign In
+									</a>
+								</button>
+
+							</div>
+
 						{% endif %}
 
 						<!-- SidebarSearch Form -->
@@ -257,7 +272,7 @@
 								<ul
 									class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 									<!-- Add icons to the links using the .nav-icon class
-																																																																																																																																																																																																																																																																																																		               with font-awesome or any other icon font library -->
+																																																																																																																																																																																																																																																																																																																																															               with font-awesome or any other icon font library -->
 									<li class="nav-item menu-open">
 										<a href="#" class="nav-link active">
 											<i class="nav-icon fas fa-tachometer-alt"></i>
