@@ -62,7 +62,7 @@
 						<div class="mb-3">
 							<label for="category" class="form-label">Category</label>
 
-							<select class="orm-control select2 " style="width: 100%;" aria-label="Disabled select example" id="category" name="category">
+							<select class="form-control select2 " style="width: 100%;" aria-label="Disabled select example" id="category" name="category">
 								{% for category in categories %}
 									<option value="{{ category.id }}">{{category.name}}</option>
 								{% endfor %}
@@ -178,7 +178,7 @@ $("#example1").DataTable({
 "lengthChange": false,
 "autoWidth": false,
 "searching": true,
-"ordering": false,
+"ordering": true,
 "paging": true,
 "destroy": true,
 "buttons": [
@@ -345,6 +345,11 @@ document.querySelector("#actions .cancel").onclick = function () {
 myDropzone.removeAllFiles(true)
 }
 // DropzoneJS Demo Code End
+		</script>
+		<script>
+			$(document).ready(function () {
+$('#input-limited-range').pickatime({twelvehour: true, min: "8:20am", max: "5:15pm"});
+});
 		</script>
 	{% endblock %}
 {% endblock %}

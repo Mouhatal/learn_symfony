@@ -24,16 +24,16 @@ class ProduitRepository extends ServiceEntityRepository
     //  * @return Produit[] Returns an array of Produit objects
     //  */
 
-    public function findByCategoryId($value)
+    public function findByProduitId($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.category_id = :category')
-            ->setParameter('category', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('p')
+            ->Where('p.id= :val')
+            ->setParameter('val', $value)
             ->getQuery()
-            ->getResult();
+            ->getOneOrNullResult();
     }
+
 
 
     /**

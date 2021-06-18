@@ -63,6 +63,62 @@
 		</div>
 
 	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">List des Catégories</h3>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+					<table id="example1" class="table table-bordered table-striped">
+						<thead>
+							<tr class="text-center">
+								<th>Id</th>
+								<th>Name</th>
+								<th>Produits</th>
+								<th>actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for category in categories %}
+								<tr>
+									<td class="text-center">{{ category.id }}</td>
+									<td class="text-center">{{ category.name }}</td>
+									{% for produit in category.produits %}
+										<td class="text-center">{{ produit.name }}</td>
+									{% endfor %}
+
+									<td class="text-right">
+										<a class="btn btn-outline-primary" href="{{ path('category_show', {'id': category.id}) }}">
+											<span>
+												<i class="fa fa-eye"></i>
+											</span>
+										</a>
+										<a class="btn btn-outline-danger" href="{{ path('category_edit', {'id': category.id}) }}">
+											<span>
+												<i class="fa fa-edit"></i>
+											</span>
+										</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="3">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+
+					</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					<a href="{{ path('category_new') }}">Create new</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
 
 	{% block javascripts %}
 		<!-- jQuery -->

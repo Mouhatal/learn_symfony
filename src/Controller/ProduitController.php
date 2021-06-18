@@ -30,7 +30,9 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $time = $request->request->get('time');
             $entityManager = $this->getDoctrine()->getManager();
+            $produit->setCreatedAt(new \DateTime($produit->getCreatedAt()->format('Y-m-d') . ' ' . $time));
             $entityManager->persist($produit);
             $entityManager->flush();
 
@@ -60,8 +62,11 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
+
             $entityManager->persist($produit);
+            dd($produit);
             $entityManager->flush();
 
             return $this->redirectToRoute('produit_index');
@@ -79,14 +84,7 @@ class ProduitController extends AbstractController
     public function addAction(CategoryRepository $categoryRepository, ProduitRepository $produitRepository, Request $request): Response
     {
         $categories = $produitRepository->getCategories();
-        // $category_id=$produitRepository->findByCategoryId($request->get('category'));
 
-
-        // $request = $this->get('request');
-
-        // ($request->get('name'));
-
-        // dd($category);
         if ($request->getMethod() == 'POST' && $_POST['name'] != null) {
             // Récupération de la valeur ici
             $produit = new Produit();
@@ -94,10 +92,7 @@ class ProduitController extends AbstractController
             $cost = $request->get('cost');
             $created_at = $request->get('created_at');
             $entityManager = $this->getDoctrine()->getManager();
-            // dd($request->get('category'));
-            // ->$request->get('category')
-            // $category = $produit->getCategory();
-            // $category = $entityManager->getRepository('App\Entity\Category')->findOneBy(array('id' => $request->get('category')));
+
             $category = $categoryRepository->findByCategoryId($request->get('category'));
             $produit->setName($name);
             $produit->setCost($cost);
@@ -111,25 +106,12 @@ class ProduitController extends AbstractController
             return $this->redirectToRoute('produit_index', ['produits' => $produitRepository->findAll()]);
         }
 
-        // dd('ici');
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $entityManager = $this->getDoctrine()->getManager();
-        //     $entityManager->persist($produit);
-        //     $entityManager->flush();
 
-        //     // dd('ici');
-        //     return $this->redirectToRoute('produit_index', ['produits' => $produitRepository->findAll()]);
-        // }
-
-        // dd('la');
         return $this->render('produit/index.html.twig', [
             'categories' => $categories,
             'produits' => $produitRepository->findAll(),
 
         ]);
-        // return $this->render('category/index.html.twig', [
-        //     'categories' => $categoryRepository->findAll(),
-        // ]);
     }
 
     /**

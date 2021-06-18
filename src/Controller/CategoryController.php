@@ -5,11 +5,14 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProduitRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
+
 // use Symfony\Component\Routing\Annotation\IsGranted;
 
 /**
@@ -31,7 +34,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/new", name="category_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ProduitRepository $produitRepository): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
@@ -39,7 +42,15 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $produits = $request->request->get('produit');
+            // dd($produits);
+            for ($i = 0; $i < count($produits); $i++) {
+                $produit = $produitRepository->findByProduitId($produits[$i]);
+                $category->addProduit($produit);
+            }
+
             $entityManager->persist($category);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('category_index');
@@ -47,6 +58,7 @@ class CategoryController extends AbstractController
 
         return $this->render('category/new.html.twig', [
             'category' => $category,
+            'produits' => $produitRepository->findAll(),
             'form' => $form->createView(),
         ]);
     }
