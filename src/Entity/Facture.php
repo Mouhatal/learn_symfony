@@ -29,16 +29,16 @@ class Facture
      */
     private $dateFacture;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="factures")
-     * @ORM\JoinTable(name="detail_ventes")
-     */
-    protected $produits;
+    // /**
+    //  * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="factures")
+    //  * @ORM\JoinTable(name="detail_ventes")
+    //  */
+    // protected $produits;
 
     public function __construct()
     {
-        $this->produits = new ArrayCollection();
-        $this->participations = new ArrayCollection();
+        // $this->produits = new ArrayCollection();
+        // $this->participations = new ArrayCollection();
         $this->detailVente = new ArrayCollection();
     }
 

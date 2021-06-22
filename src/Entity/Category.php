@@ -26,7 +26,7 @@ class Category
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Produit", mappedBy="category")
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     private $produits;
 

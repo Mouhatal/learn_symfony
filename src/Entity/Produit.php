@@ -39,15 +39,15 @@ class Produit
      */
     private $category;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Facture::class,mappedBy="produits")
-     */
-    protected $factures;
+    // /**
+    //  * @ORM\ManyToMany(targetEntity=Facture::class,mappedBy="produits")
+    //  */
+    // protected $factures;
 
-    public function __construct()
-    {
-        $this->factures = new ArrayCollection();
-    }
+    // public function __construct()
+    // {
+    //     $this->factures = new ArrayCollection();
+    // }
 
 
     public function getId(): ?int
