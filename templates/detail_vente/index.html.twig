@@ -1,37 +1,121 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}DetailVente index{% endblock %}
+{% block title %}Produit index
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('templates/plugins/daterangepicker/daterangepicker.css')}}">
+	<link rel="stylesheet" href="{{asset('templates/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('templates/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+	<link rel="stylesheet" href="{{asset('templates/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+	<link rel="stylesheet" href="{{asset('templates/plugins/select2/css/select2.min.css')}}">
+	<link rel="stylesheet" href="{{asset('templates/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+	<link rel="stylesheet" href="{{asset('templates/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
+	<link rel="stylesheet" href="{{asset('templates/plugins/bs-stepper/css/bs-stepper.min.css')}}">
+	<link rel="stylesheet" href="{{asset('templates/plugins/dropzone/min/dropzone.min.css')}}">
+	<link rel="stylesheet" href="{{asset('templates/dist/css/adminlte.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('templates/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+{% endblock %}
 
 {% block body %}
-    <h1>DetailVente index</h1>
+	<h1>DetailVente index</h1>
+	<div class="row">
+		<div class="col-12">
+			<div class="card card-primary">
+				<div class="card-header">
+					<h3 class="card-title">Ajouter au panier
+					</h3>
+				</div>
+				<div class="card-body">
+					<form action="{{ path('addPanierAction') }}" method="post">
+						<div class="mb-3">
+							<label for="quantite" class="form-label">Quantite</label>
+							<input type="number" min="0" class="form-control" id="quantite" name="quantite" requireed>
+						</div>
+						<div class="mb-3">
+							<label for="pu" class="form-label">Prix Unitaire</label>
+							<input type="number" class="form-control" min="0" id="pu" name="pu" required>
+						</div>
+						<div class="mb-3">
+							<label for="name" class="form-label">Nom Client</label>
+							<input type="text" class="form-control" id="name" name="name" required>
+						</div>
+						<div class="mb-3">
+							<label for="numClient" class="form-label">Telephone</label>
+							<input type="tel" class="form-control" name="numClient" id="numClient">
+						</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Quantité</th>
-                <th>Pu</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for detail_vente in detail_ventes %}
-            <tr>
-                <td>{{ detail_vente.id }}</td>
-                <td>{{ detail_vente.quantité }}</td>
-                <td>{{ detail_vente.pu }}</td>
-                <td>
-                    <a href="{{ path('detail_vente_show', {'id': detail_vente.id}) }}">show</a>
-                    <a href="{{ path('detail_vente_edit', {'id': detail_vente.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+						<div class="mb-3">
+							<label for="produit" class="form-label">Produit</label>
 
-    <a href="{{ path('detail_vente_new') }}">Create new</a>
+							<select class="form-control select2 " style="width: 100%;" aria-label="Disabled select example" id="produit" name="produit">
+								{% for produit in produits %}
+									<option value="{{ produit.id }}">{{produit.name}}</option>
+								{% endfor %}
+							</select>
+
+						</div>
+
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="row mt-2">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Ventes</h3>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+					<table id="example1" class="table table-bordered table-striped">
+						<thead>
+							<tr class="text-center">
+								<th>Id</th>
+								<th>Quantité</th>
+								<th>Pu</th>
+								<th>actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for detail_vente in detail_ventes %}
+								<tr>
+									<td class="text-center">{{ detail_vente.id }}</td>
+									<td class="text-center">
+										{{ detail_vente.quantite }}</td>
+									<td class="text-center">{{ detail_vente.pu }}</td>
+									<td class="text-center">
+										<a class="btn btn-outline-primary" href="{{ path('detail_vente_show', {'id': detail_vente.id}) }}">
+											<span>
+												<i class="fa fa-eye"></i>
+											</span>
+										</a>
+										<a class="btn btn-outline-danger" href="{{ path('detail_vente_edit', {'id': detail_vente.id}) }}">
+											<span>
+												<i class="fa fa-edit"></i>
+											</span>
+										</a>
+									</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td class="row">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+
+					</table>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					<a href="{{ path('detail_vente_new') }}">Create new</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
 {% endblock %}

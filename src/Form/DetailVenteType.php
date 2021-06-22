@@ -12,11 +12,10 @@ class DetailVenteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantité')
+            ->add('quantite')
             ->add('pu')
             ->add('facture')
-            ->add('produit')
-        ;
+            ->add('produit');
     }
 
     public function configureOptions(OptionsResolver $resolver)

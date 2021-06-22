@@ -30,6 +30,8 @@ class ProduitRepository extends ServiceEntityRepository
             ->select('p')
             ->Where('p.id= :val')
             ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getOneOrNullResult();
     }

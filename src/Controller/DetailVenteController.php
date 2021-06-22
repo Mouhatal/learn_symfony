@@ -2,29 +2,88 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
 use App\Entity\DetailVente;
+use App\Entity\Facture;
 use App\Form\DetailVenteType;
+use App\Repository\ProduitRepository;
 use App\Repository\DetailVenteRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use PhpParser\Node\Expr\Cast\Double;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/detail/vente")
+ * @Route("/vente")
  */
 class DetailVenteController extends AbstractController
 {
     /**
      * @Route("/", name="detail_vente_index", methods={"GET"})
      */
-    public function index(DetailVenteRepository $detailVenteRepository): Response
+    public function index(DetailVenteRepository $detailVenteRepository, ProduitRepository $produitRepository): Response
     {
         return $this->render('detail_vente/index.html.twig', [
             'detail_ventes' => $detailVenteRepository->findAll(),
+            'produits' => $produitRepository->findAll(),
         ]);
     }
+    /**
+     * @Route("/add", name="addPanierAction", methods={"GET","POST"})
+     */
+    public function addPanierAction(Request $request): Response
+    {
 
+
+        if ($request->getMethod() == 'POST') {
+            // Récupération de la valeur ici
+            // $produit = new Produit();
+            $facture = new Facture;
+            $detailVente = new DetailVente;
+            $quantite = $request->get('quantite');
+            $pu = (float) $request->get('pu');
+            $nomClient = $request->get('name');
+            $tel = (string)$request->get('numClient');
+            dd($tel);
+            $date = new \DateTime('@' . strtotime('now'));
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $produit = $this->getDoctrine()->getManager()->getRepository('App\Entity\Produit')
+                ->findOneBy(['id' => $request->get('produit')]);
+            $montant = $pu * $quantite;
+
+            // persiste 
+            $facture->setClient($nomClient);
+            $facture->setNumClient($tel);
+            $facture->setMontant($montant);
+            $facture->setDateFacture($date);
+            $entityManager->persist($facture);
+            $entityManager->flush();
+
+            if ($facture->getId()) {
+                $detailVente->setFacture($facture);
+                $detailVente->setQuantite($quantite);
+                $detailVente->setPu($pu);
+                $detailVente->setProduit($produit);
+                $entityManager->persist($detailVente);
+                $entityManager->flush();
+            }
+            //dd($detailVente);
+
+            //return $this->redirectToRoute('produit_index', ['produits' => $produitRepository->findAll()]);
+        } else {
+            //return $this->redirectToRoute('produit_index', ['produits' => $produitRepository->findAll()]);
+        }
+
+
+        return $this->render('detail_vente/index.html.twig', [
+            'detail_ventes' => $this->getDoctrine()->getManager()->getRepository('App\Entity\Produit')
+                ->findAll(),
+            'produits' => $this->getDoctrine()->getManager()->getRepository('App\Entity\Produit')->findAll()
+        ]);
+    }
     /**
      * @Route("/new", name="detail_vente_new", methods={"GET","POST"})
      */
@@ -55,6 +114,7 @@ class DetailVenteController extends AbstractController
     {
         return $this->render('detail_vente/show.html.twig', [
             'detail_vente' => $detailVente,
+
         ]);
     }
 
@@ -83,7 +143,7 @@ class DetailVenteController extends AbstractController
      */
     public function delete(Request $request, DetailVente $detailVente): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$detailVente->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $detailVente->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($detailVente);
             $entityManager->flush();

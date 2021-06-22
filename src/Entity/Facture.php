@@ -25,6 +25,16 @@ class Facture
     private $montant;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $client;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $numClient;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $dateFacture;
@@ -79,29 +89,6 @@ class Facture
         return $this;
     }
 
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduits(): Collection
-    {
-        return $this->produits;
-    }
-
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        $this->produits->removeElement($produit);
-
-        return $this;
-    }
 
     /**
      * @return Collection|DetailVente[]
@@ -129,6 +116,30 @@ class Facture
                 $detailVente->setFacture(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClient(): ?string
+    {
+        return $this->client;
+    }
+
+    public function setClient(string $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getNumClient(): ?string
+    {
+        return $this->numClient;
+    }
+
+    public function setNumClient(string $numClient): self
+    {
+        $this->numClient = $numClient;
 
         return $this;
     }

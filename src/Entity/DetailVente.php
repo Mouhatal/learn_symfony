@@ -21,7 +21,7 @@ class DetailVente
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantité;
+    private $quantite;
 
     /**
      * @ORM\Column(type="float")
@@ -44,17 +44,6 @@ class DetailVente
         return $this->id;
     }
 
-    public function getQuantité(): ?int
-    {
-        return $this->quantité;
-    }
-
-    public function setQuantité(int $quantité): self
-    {
-        $this->quantité = $quantité;
-
-        return $this;
-    }
 
     public function getPu(): ?float
     {
@@ -88,6 +77,18 @@ class DetailVente
     public function setProduit(?Produit $produit): self
     {
         $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): self
+    {
+        $this->quantite = $quantite;
 
         return $this;
     }

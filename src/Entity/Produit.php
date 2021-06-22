@@ -93,6 +93,9 @@ class Produit
     public function __toString()
     {
         return $this->getCategory();
+        return $this->name;
+        // to show the id of the Category in the select
+        return $this->id;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -103,30 +106,6 @@ class Produit
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Facture[]
-     */
-    public function getFactures(): Collection
-    {
-        return $this->factures;
-    }
-
-    public function addFacture(Facture $facture): self
-    {
-        if (!$this->factures->contains($facture)) {
-            $this->factures[] = $facture;
-        }
-
-        return $this;
-    }
-
-    public function removeFacture(Facture $facture): self
-    {
-        $this->factures->removeElement($facture);
 
         return $this;
     }
