@@ -57,9 +57,9 @@ class Category
     /**
      * @return Collection|Produit[]
      */
-    public function getProduits(): Collection
+    public function getProduits(): ?Collection
     {
-        return $this->produits;
+        return $this->produits = new ArrayCollection();
     }
 
     public function addProduit(Produit $produit): self
@@ -99,5 +99,12 @@ class Category
         return $this->name;
         // to show the id of the Category in the select
         return $this->id;
+    }
+
+    public function setProduits(array $produits): self
+    {
+        $this->produits = $produits;
+
+        return $this;
     }
 }

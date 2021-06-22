@@ -26,8 +26,21 @@ class CategoryController extends AbstractController
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
+
+        // dd($categoryRepository->findAll());
+        $categories = $categoryRepository->findAll();
+        $data = array();
+        foreach ($categories as $item) {
+            $data[] = array(
+                'cat' => $item,
+                'produits' => $this->getDoctrine()->getManager()->getRepository('App\Entity\Produit')->findBy(['category' => $item])
+            );
+
+            # code...
+        }
+
         return $this->render('category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'categories' => $data,
         ]);
     }
 
@@ -76,7 +89,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Category $category): Response
+    public function edit(Request $request, Category $category, ProduitRepository $produitRepository): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -90,6 +103,7 @@ class CategoryController extends AbstractController
         return $this->render('category/edit.html.twig', [
             'category' => $category,
             'form' => $form->createView(),
+            'produits' => $produitRepository->findAll(),
         ]);
     }
 
