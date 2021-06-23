@@ -45,7 +45,7 @@ class DetailVenteController extends AbstractController
             $pu = (float) $request->get('pu');
             $nomClient = $request->get('name');
             $tel = (string)$request->get('numClient');
-            dd($tel);
+
             $date = new \DateTime('@' . strtotime('now'));
 
 
@@ -71,18 +71,16 @@ class DetailVenteController extends AbstractController
                 $entityManager->flush();
             }
             //dd($detailVente);
-
+            return $this->render('detail_vente/show.html.twig', [
+                'detail_ventes' => $this->getDoctrine()->getManager()->getRepository('App\Entity\DetailVente')
+                    ->findOneBy(['id' => $detailVente->getId()]),
+                // dd($this->getDoctrine()->getManager()->getRepository('App\Entity\DetailVente')->findOneBy(['id' => $detailVente->getId()])),
+                //'produits' => $this->getDoctrine()->getManager()->getRepository('App\Entity\Produit')->findAll()
+            ]);
             //return $this->redirectToRoute('produit_index', ['produits' => $produitRepository->findAll()]);
         } else {
             //return $this->redirectToRoute('produit_index', ['produits' => $produitRepository->findAll()]);
         }
-
-
-        return $this->render('detail_vente/index.html.twig', [
-            'detail_ventes' => $this->getDoctrine()->getManager()->getRepository('App\Entity\Produit')
-                ->findAll(),
-            'produits' => $this->getDoctrine()->getManager()->getRepository('App\Entity\Produit')->findAll()
-        ]);
     }
     /**
      * @Route("/new", name="detail_vente_new", methods={"GET","POST"})

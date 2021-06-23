@@ -57,7 +57,10 @@ class Facture
      */
     protected $detailVente;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\PriseService", inversedBy="factures")
+     */
+    private $priseService;
 
 
     public function getId(): ?int
@@ -140,6 +143,18 @@ class Facture
     public function setNumClient(string $numClient): self
     {
         $this->numClient = $numClient;
+
+        return $this;
+    }
+
+    public function getPriseService(): ?PriseService
+    {
+        return $this->priseService;
+    }
+
+    public function setPriseService(?PriseService $priseService): self
+    {
+        $this->priseService = $priseService;
 
         return $this;
     }

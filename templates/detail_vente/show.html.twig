@@ -11,15 +11,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1>Invoice</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item">
-							<a href="#">Home</a>
-						</li>
-						<li class="breadcrumb-item active">Invoice</li>
-					</ol>
+					<h1>Facture</h1>
 				</div>
 			</div>
 		</div>
@@ -47,7 +39,7 @@
 								<h4>
 									<i class="fas fa-globe"></i>
 									AdminLTE, Inc.
-									<small class="float-right">Date: 2/10/2014</small>
+									<small class="float-right">{{detail_ventes.facture.dateFacture|date("Y-m-d H:i:s")}}</small>
 								</h4>
 							</div>
 							<!-- /.col -->
@@ -68,10 +60,11 @@
 							<div class="col-sm-4 invoice-col">
 								To
 								<address>
-									<strong>John Doe</strong><br>
+									<strong>{{detail_ventes.facture.client}}</strong><br>
 									795 Folsom Ave, Suite 600<br>
 									San Francisco, CA 94107<br>
-									Phone: (555) 539-1037<br>
+									Phone:
+									{{detail_ventes.facture.numClient}}<br>
 									Email: john.doe@example.com
 								</address>
 							</div>
@@ -98,39 +91,14 @@
 										<tr>
 											<th>Qty</th>
 											<th>Product</th>
-											<th>Serial #</th>
-											<th>Description</th>
-											<th>Subtotal</th>
+											<th>Pu</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td>1</td>
-											<td>Call of Duty</td>
-											<td>455-981-221</td>
-											<td>El snort testosterone trophy driving gloves handsome</td>
-											<td>$64.50</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>Need for Speed IV</td>
-											<td>247-925-726</td>
-											<td>Wes Anderson umami biodiesel</td>
-											<td>$50.00</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>Monsters DVD</td>
-											<td>735-845-642</td>
-											<td>Terry Richardson helvetica tousled street art master</td>
-											<td>$10.70</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>Grown Ups Blue Ray</td>
-											<td>422-568-642</td>
-											<td>Tousled lomo letterpress</td>
-											<td>$25.99</td>
+											<td>{{detail_ventes.quantite}}</td>
+											<td>{{detail_ventes.produit.name}}</td>
+											<td>{{detail_ventes.pu}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -151,8 +119,8 @@
 
 								<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
 									Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
-																																					                    plugg
-																																					                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+																																																																																																																						                    plugg
+																																																																																																																						                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
 								</p>
 							</div>
 							<!-- /.col -->
@@ -162,20 +130,17 @@
 								<div class="table-responsive">
 									<table class="table">
 										<tr>
-											<th style="width:50%">Subtotal:</th>
-											<td>$250.30</td>
+											<th style="width:50%">Prix Unitaire:</th>
+											<td>{{detail_ventes.pu}}</td>
 										</tr>
 										<tr>
-											<th>Tax (9.3%)</th>
-											<td>$10.34</td>
+											<th>Quantite</th>
+											<td>{{detail_ventes.quantite}}</td>
 										</tr>
+
 										<tr>
-											<th>Shipping:</th>
-											<td>$5.80</td>
-										</tr>
-										<tr>
-											<th>Total:</th>
-											<td>$265.24</td>
+											<th>Montant:</th>
+											<td>{{detail_ventes.facture.montant}}</td>
 										</tr>
 									</table>
 								</div>
@@ -190,7 +155,7 @@
 								<button type="button" class="btn btn-success float-right">
 									<i class="far fa-credit-card"></i>
 									Submit
-																																					                    Payment
+																																																																																																																						                    Payment
 								</button>
 								<button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
 									<i class="fas fa-download"></i>
