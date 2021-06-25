@@ -133,6 +133,26 @@
     "guzzlehttp/psr7": {
         "version": "1.8.2"
     },
+    "jms/metadata": {
+        "version": "2.5.0"
+    },
+    "jms/serializer": {
+        "version": "3.12.3"
+    },
+    "jms/serializer-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "384cec52df45f3bfd46a09930d6960a58872b268"
+        },
+        "files": [
+            "config/packages/dev/jms_serializer.yaml",
+            "config/packages/jms_serializer.yaml",
+            "config/packages/prod/jms_serializer.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.3.0"
     },
@@ -145,6 +165,18 @@
     "nikic/php-parser": {
         "version": "v4.10.5"
     },
+    "phpdocumentor/reflection-common": {
+        "version": "2.2.0"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "5.2.2"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "1.4.0"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.5.5"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -156,6 +188,9 @@
     },
     "psr/http-message": {
         "version": "1.0.1"
+    },
+    "psr/link": {
+        "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.4"
@@ -261,6 +296,9 @@
             "src/Kernel.php"
         ]
     },
+    "symfony/http-client": {
+        "version": "v5.1.11"
+    },
     "symfony/http-client-contracts": {
         "version": "v2.4.0"
     },
@@ -296,6 +334,18 @@
     },
     "symfony/mime": {
         "version": "v5.1.11"
+    },
+    "symfony/notifier": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "c31585e252b32fe0e1f30b1f256af553f4a06eb9"
+        },
+        "files": [
+            "config/packages/notifier.yaml"
+        ]
     },
     "symfony/options-resolver": {
         "version": "v5.1.11"
@@ -374,6 +424,12 @@
     "symfony/security-http": {
         "version": "v5.1.11"
     },
+    "symfony/serializer": {
+        "version": "v5.1.11"
+    },
+    "symfony/serializer-pack": {
+        "version": "v1.0.4"
+    },
     "symfony/service-contracts": {
         "version": "v2.4.0"
     },
@@ -422,6 +478,9 @@
     "symfony/var-exporter": {
         "version": "v5.1.11"
     },
+    "symfony/web-link": {
+        "version": "v5.1.11"
+    },
     "symfony/web-profiler-bundle": {
         "version": "3.3",
         "recipe": {
@@ -456,5 +515,8 @@
     },
     "twig/twig": {
         "version": "v3.3.2"
+    },
+    "webmozart/assert": {
+        "version": "1.10.0"
     }
 }
