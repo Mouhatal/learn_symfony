@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ProduitRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
+ * @ApiResource
  */
 class Produit
 {
@@ -37,12 +39,12 @@ class Produit
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="produits")
      */
     private $category;
 
     // /**
-    //  * @ORM\ManyToMany(targetEntity=Facture::class,mappedBy="produits")
+    //  * @ORM\ManyToMany(targetEntity=Facture::class,mappedBy="produits", )
     //  */
     // protected $factures;
 
