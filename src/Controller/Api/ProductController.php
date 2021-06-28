@@ -2,11 +2,15 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Category;
+use App\Entity\Produit;
 use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -35,5 +39,40 @@ class ProductController extends AbstractController
         $response = $this->json($product, 200, []);
 
         return $response;
+    }
+
+
+    /**
+     * @Route("/api/product",name="add_product", methods={"POST"})
+     */
+    public function store(Request $request, SerializerInterface $serializer, NormalizerInterface $normalizer)
+    {
+        $jsonRecu = $request->getContent();
+
+        $data = \json_decode($jsonRecu, true);
+
+        try {
+            $product = $serializer->deserialize($jsonRecu, Produit::class, 'json');
+
+            $product->setCreatedAt(new \DateTime());
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $category =  $entityManager->getRepository('App\Entity\Category')->findOneBy(['id' => $data['category_id']]);
+            $product->setCategory($category);
+
+            $entityManager->persist($product);
+
+            $entityManager->flush();
+
+            $response = $this->json($product, 201, []);
+
+            return $response;
+        } catch (NotEncodableValueException $e) {
+            return $this->json([
+                'status' => 400,
+                'message' => $e->getMessage()
+            ], 400);
+        }
     }
 }
