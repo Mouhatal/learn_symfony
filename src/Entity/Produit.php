@@ -39,7 +39,7 @@ class Produit
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="produits")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category" ,fetch="EAGER")
      */
     private $category;
 

@@ -36,7 +36,10 @@ class ProductController extends AbstractController
 
         // $response = new JsonResponse($json, 200, [], true);
 
-        $response = $this->json($product, 200, []);
+        $response = $this->json([
+            'message' => 'ok',
+            'products' => $product
+        ], 200, []);
 
         return $response;
     }
@@ -45,7 +48,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/api/product",name="add_product", methods={"POST"})
      */
-    public function store(Request $request, SerializerInterface $serializer, NormalizerInterface $normalizer)
+    public function store(Request $request, SerializerInterface $serializer)
     {
         $jsonRecu = $request->getContent();
 
@@ -65,7 +68,10 @@ class ProductController extends AbstractController
 
             $entityManager->flush();
 
-            $response = $this->json($product, 201, []);
+            $response = $this->json([
+                'message' => 'Product created',
+                'product' => $product
+            ], 201, []);
 
             return $response;
         } catch (NotEncodableValueException $e) {
